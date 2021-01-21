@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://item/Item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://item/food/Food.gd" type="Script" id=2]
+[ext_resource path="res://item/sprites/pizza.png" type="Texture" id=3]
+
+[node name="Pizza" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+type = "pizza"
+max_stack = 3
+
+[node name="Sprite" parent="." index="0"]
+scale = Vector2( 0.062, 0.062 )
+texture = ExtResource( 3 )

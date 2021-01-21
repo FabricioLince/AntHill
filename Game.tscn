@@ -1,0 +1,408 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://PathMaker.gd" type="Script" id=2]
+[ext_resource path="res://Game.gd" type="Script" id=3]
+[ext_resource path="res://Selector.gd" type="Script" id=4]
+[ext_resource path="res://StorageChunk.tscn" type="PackedScene" id=5]
+[ext_resource path="res://item/food/Leaf.tscn" type="PackedScene" id=6]
+[ext_resource path="res://testes/ItemSpawner.gd" type="Script" id=7]
+[ext_resource path="res://task system/CollectTaskSystem.gd" type="Script" id=8]
+[ext_resource path="res://HUD/ItemPanel.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Dig.gd" type="Script" id=10]
+[ext_resource path="res://task system/DigTaskSystem.gd" type="Script" id=11]
+[ext_resource path="res://GameCamera.gd" type="Script" id=12]
+[ext_resource path="res://HUD/scripts/ItemList.gd" type="Script" id=13]
+[ext_resource path="res://Mouse.gd" type="Script" id=14]
+[ext_resource path="res://HUD/scripts/SelectionList.gd" type="Script" id=15]
+[ext_resource path="res://item/Egg.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Storage.gd" type="Script" id=17]
+[ext_resource path="res://ItemManager.gd" type="Script" id=18]
+[ext_resource path="res://ant/sprites/193e85a836c7fdc67b2b1c4157c8b467-ant-antena-de-antenas-by-vexels.png" type="Texture" id=19]
+[ext_resource path="res://AntManager.gd" type="Script" id=20]
+[ext_resource path="res://ant/Queen.gd" type="Script" id=21]
+[ext_resource path="res://HUD/scripts/AntList.gd" type="Script" id=22]
+[ext_resource path="res://task system/NewEggTaskSystem.gd" type="Script" id=23]
+[ext_resource path="res://AllInfo.gd" type="Script" id=24]
+[ext_resource path="res://HUD/AntPanel.tscn" type="PackedScene" id=25]
+[ext_resource path="res://HUD/scripts/TileList.gd" type="Script" id=26]
+[ext_resource path="res://HUD/sprites/create_area.png" type="Texture" id=27]
+
+[node name="Game" type="Node2D"]
+pause_mode = 2
+script = ExtResource( 3 )
+
+[node name="Level" parent="." instance=ExtResource( 1 )]
+
+[node name="Areas" type="Node2D" parent="Level"]
+
+[node name="Dig" type="Node2D" parent="Level/Areas"]
+script = ExtResource( 10 )
+
+[node name="Storage" type="Node2D" parent="Level/Areas"]
+script = ExtResource( 17 )
+Chunk = ExtResource( 5 )
+
+[node name="Nursary" type="Node2D" parent="Level/Areas"]
+script = ExtResource( 17 )
+Chunk = ExtResource( 5 )
+color = Color( 0.862745, 0.52549, 0.890196, 1 )
+
+[node name="TaskSystem" type="Node" parent="."]
+
+[node name="NewEggTaskSystem" type="Node" parent="TaskSystem"]
+script = ExtResource( 23 )
+
+[node name="DigTaskSystem" type="Node" parent="TaskSystem"]
+script = ExtResource( 11 )
+
+[node name="CollectTaskSystem" type="Node" parent="TaskSystem"]
+script = ExtResource( 8 )
+
+[node name="Selector" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Queen" type="Node2D" parent="."]
+position = Vector2( 1352, 760 )
+script = ExtResource( 21 )
+
+[node name="EggSpawner" type="Node2D" parent="Queen"]
+script = ExtResource( 7 )
+Item = ExtResource( 16 )
+max_amount = 1
+wait_time = 5.0
+min_distance = 16.0
+task_system = NodePath("../../TaskSystem/NewEggTaskSystem")
+
+[node name="Position2D" type="Position2D" parent="Queen/EggSpawner"]
+
+[node name="Sprite" type="Sprite" parent="Queen"]
+scale = Vector2( 0.124, 0.124 )
+texture = ExtResource( 19 )
+
+[node name="Ants" type="Node" parent="."]
+script = ExtResource( 20 )
+
+[node name="Items" type="Node" parent="."]
+script = ExtResource( 18 )
+
+[node name="FoodSpawner" type="Node" parent="."]
+script = ExtResource( 7 )
+Item = ExtResource( 6 )
+min_distance = 8.0
+
+[node name="SpawnPoint" type="Position2D" parent="FoodSpawner"]
+position = Vector2( 1520, 432 )
+
+[node name="SpawnPoint2" type="Position2D" parent="FoodSpawner"]
+position = Vector2( 2346, 26 )
+
+[node name="SpawnPoint3" type="Position2D" parent="FoodSpawner"]
+position = Vector2( 2386, 74 )
+
+[node name="SpawnPoint4" type="Position2D" parent="FoodSpawner"]
+position = Vector2( 2362, 58 )
+
+[node name="SpawnPoint5" type="Position2D" parent="FoodSpawner"]
+position = Vector2( 2362, 58 )
+
+[node name="SpawnPoint6" type="Position2D" parent="FoodSpawner"]
+position = Vector2( 2362, 58 )
+
+[node name="SpawnPoint7" type="Position2D" parent="FoodSpawner"]
+position = Vector2( 2362, 58 )
+
+[node name="SpawnPoint8" type="Position2D" parent="FoodSpawner"]
+position = Vector2( 2362, 58 )
+
+[node name="SpawnPoint9" type="Position2D" parent="FoodSpawner"]
+position = Vector2( 2362, 58 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 1480, 624 )
+current = true
+limit_left = 0
+limit_top = 0
+script = ExtResource( 12 )
+
+[node name="Mouse" type="Node2D" parent="."]
+script = ExtResource( 14 )
+
+[node name="MainHUD" type="CanvasLayer" parent="."]
+
+[node name="SelectionList" type="TabContainer" parent="MainHUD"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -216.0
+rect_min_size = Vector2( 200, 600 )
+mouse_filter = 2
+tab_align = 0
+tabs_visible = false
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AntList" type="VBoxContainer" parent="MainHUD/SelectionList"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 8.0
+margin_right = -4.0
+margin_bottom = -4.0
+rect_min_size = Vector2( 200, 600 )
+mouse_filter = 2
+script = ExtResource( 22 )
+AntPanel = ExtResource( 25 )
+
+[node name="Title" type="PanelContainer" parent="MainHUD/SelectionList/AntList"]
+margin_right = 208.0
+margin_bottom = 28.0
+
+[node name="Label" type="Label" parent="MainHUD/SelectionList/AntList/Title"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 201.0
+margin_bottom = 21.0
+text = "Ants"
+
+[node name="AntPanels" type="VBoxContainer" parent="MainHUD/SelectionList/AntList"]
+margin_top = 32.0
+margin_right = 208.0
+margin_bottom = 32.0
+
+[node name="Buttons" type="VBoxContainer" parent="MainHUD/SelectionList/AntList"]
+visible = false
+margin_top = 36.0
+margin_right = 208.0
+margin_bottom = 68.0
+
+[node name="FetchAll" type="Button" parent="MainHUD/SelectionList/AntList/Buttons"]
+margin_right = 208.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainHUD/SelectionList/AntList/Buttons/FetchAll"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -8.0
+margin_right = 100.0
+margin_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 0, 16 )
+mouse_filter = 2
+bbcode_enabled = true
+bbcode_text = "[center][u]F[/u]etch All[/center]"
+text = "Fetch All"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemList" type="VBoxContainer" parent="MainHUD/SelectionList"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 8.0
+margin_right = -4.0
+margin_bottom = -4.0
+rect_min_size = Vector2( 200, 600 )
+mouse_filter = 2
+script = ExtResource( 13 )
+ItemPanel = ExtResource( 9 )
+
+[node name="Title" type="PanelContainer" parent="MainHUD/SelectionList/ItemList"]
+margin_right = 208.0
+margin_bottom = 28.0
+
+[node name="Label" type="Label" parent="MainHUD/SelectionList/ItemList/Title"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 201.0
+margin_bottom = 21.0
+text = "Items"
+
+[node name="ItemPanels" type="VBoxContainer" parent="MainHUD/SelectionList/ItemList"]
+margin_top = 32.0
+margin_right = 208.0
+margin_bottom = 32.0
+
+[node name="Buttons" type="VBoxContainer" parent="MainHUD/SelectionList/ItemList"]
+margin_top = 36.0
+margin_right = 208.0
+margin_bottom = 36.0
+
+[node name="FetchAll" type="Button" parent="MainHUD/SelectionList/ItemList/Buttons"]
+visible = false
+margin_right = 208.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainHUD/SelectionList/ItemList/Buttons/FetchAll"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -8.0
+margin_right = 100.0
+margin_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 0, 16 )
+mouse_filter = 2
+bbcode_enabled = true
+bbcode_text = "[center][u]F[/u]etch All[/center]"
+text = "Fetch All"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TileList" type="VBoxContainer" parent="MainHUD/SelectionList"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 8.0
+margin_right = -4.0
+margin_bottom = -4.0
+rect_min_size = Vector2( 200, 600 )
+mouse_filter = 2
+script = ExtResource( 26 )
+
+[node name="Title" type="PanelContainer" parent="MainHUD/SelectionList/TileList"]
+margin_right = 208.0
+margin_bottom = 28.0
+
+[node name="Label" type="Label" parent="MainHUD/SelectionList/TileList/Title"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 201.0
+margin_bottom = 21.0
+text = "Tiles"
+
+[node name="TilePanels" type="VBoxContainer" parent="MainHUD/SelectionList/TileList"]
+margin_top = 32.0
+margin_right = 208.0
+margin_bottom = 46.0
+
+[node name="Label" type="Label" parent="MainHUD/SelectionList/TileList/TilePanels"]
+margin_right = 208.0
+margin_bottom = 14.0
+
+[node name="Buttons" type="VBoxContainer" parent="MainHUD/SelectionList/TileList"]
+margin_top = 50.0
+margin_right = 208.0
+margin_bottom = 50.0
+
+[node name="Dig" type="Button" parent="MainHUD/SelectionList/TileList/Buttons"]
+visible = false
+margin_right = 208.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainHUD/SelectionList/TileList/Buttons/Dig"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -8.0
+margin_right = 100.0
+margin_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 0, 16 )
+mouse_filter = 2
+bbcode_enabled = true
+bbcode_text = "[center]Dig All[/center]"
+text = "Dig All"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreateStorage" type="Button" parent="MainHUD/SelectionList/TileList/Buttons"]
+visible = false
+margin_right = 208.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainHUD/SelectionList/TileList/Buttons/CreateStorage"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -8.0
+margin_right = 100.0
+margin_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 0, 16 )
+mouse_filter = 2
+bbcode_enabled = true
+bbcode_text = "[center]Create Storage[/center]"
+text = "Create Storage"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreateNursary" type="Button" parent="MainHUD/SelectionList/TileList/Buttons"]
+visible = false
+margin_right = 208.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainHUD/SelectionList/TileList/Buttons/CreateNursary"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -8.0
+margin_right = 100.0
+margin_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 0, 16 )
+mouse_filter = 2
+bbcode_enabled = true
+bbcode_text = "[center]Create Nursary[/center]"
+text = "Create Nursary"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MainHUD"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "top text"
+script = ExtResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CycleSelectionMode" type="Button" parent="MainHUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -264.0
+margin_right = -220.0
+margin_bottom = 38.0
+icon = ExtResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PathMaker" type="Node" parent="."]
+script = ExtResource( 2 )
+[connection signal="pressed" from="MainHUD/SelectionList/ItemList/Buttons/FetchAll" to="MainHUD/SelectionList/ItemList" method="_on_FetchAll_pressed"]
+[connection signal="pressed" from="MainHUD/SelectionList/TileList/Buttons/Dig" to="MainHUD/SelectionList/TileList" method="_on_Dig_pressed"]
+[connection signal="pressed" from="MainHUD/SelectionList/TileList/Buttons/CreateStorage" to="MainHUD/SelectionList/TileList" method="_on_CreateStorage_pressed"]
+[connection signal="pressed" from="MainHUD/SelectionList/TileList/Buttons/CreateNursary" to="MainHUD/SelectionList/TileList" method="_on_CreateNursary_pressed"]
+[connection signal="pressed" from="MainHUD/CycleSelectionMode" to="." method="cycle_selection_mode"]
