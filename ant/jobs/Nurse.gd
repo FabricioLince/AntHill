@@ -17,6 +17,7 @@ func _ready():
 	add_state("fetching_egg")
 	add_state("searching_nursary")
 	add_state("storing_egg")
+	add_state("feeding_egg")
 	call_deferred("set_state", states.idle)
 	set_physics_process(false)
 
@@ -46,6 +47,8 @@ func _get_transition(delta):
 				return states.searching_egg
 			if movement.close_enough(current_task.item.position):
 				if bag.hold(current_task.item):
+					if current_task.to_feed:
+						return states.feeding_egg
 					return states.searching_nursary
 		states.searching_nursary:
 			if tile_to_deposit == null:
@@ -68,9 +71,19 @@ func _get_transition(delta):
 					return states.searching_nursary
 			elif not movement.has_path():
 				return states.searching_nursary
+		states.feeding_egg:
+			timer -= delta
+			ant.rotation += delta * 2
+			if timer < 0:
+				current_task.item.food += 1.0
+				current_task = null
+				bag.drop()
+				return states.idle
 
 func _enter_state(new_state, _o):
 	if new_state == states.fetching_egg:
+		timer = 1.0
+	if new_state == states.feeding_egg:
 		timer = 1.0
 
 func set_goal_if_can(tile):

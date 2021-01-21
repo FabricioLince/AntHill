@@ -5,6 +5,9 @@ const category = "ant egg"
 var age = 0.0
 
 var time_to_mature = 100.0
+var asked_for_food = false
+var food = 0.0
+var task_system
 
 func _ready():
 	$Sprite/ant.rotation = rand_range(0, 2*PI)
@@ -18,6 +21,9 @@ func _process(delta):
 		var ant_manager = get_node("/root/Game/Ants")
 		ant_manager.spawn_random_ant(position)
 		queue_free()
+	if maturation() > 0.5 and not asked_for_food:
+		task_system.push_feed_task(self)
+		asked_for_food = true
 
 func is_mature():
 	return age > time_to_mature

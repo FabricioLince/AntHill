@@ -31,7 +31,7 @@ func _on_mouse_click(pos, button):
 	match selection_mode:
 		ModeKind.ANTS:
 			game.selected_ant = null
-			for ant in game.get_node("Ants").get_children():
+			for ant in game.ant_manager.ants.values():
 				ant.selected = false
 				if game.selected_ant == null:
 					if ant.position.distance_to(pos) < 16:
@@ -73,7 +73,7 @@ func _on_mouse_select(rect, button_mask):
 
 func select_ants(rect):
 	selected_ants.clear()
-	for ant in game.get_node("Ants").get_children():
+	for ant in game.ant_manager.ants.values():
 		ant.selected = false
 		if rect.has_point(ant.position):
 			selected_ants.append(ant)

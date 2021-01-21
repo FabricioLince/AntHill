@@ -19,7 +19,8 @@ func get_by_job(job):
 
 func _ready():
 	for c in get_children():
-		register_ant(c)
+		if c.get("is_ant"):
+			register_ant(c)
 	yield(get_tree(), "idle_frame")
 	for job_name in starting_ants:
 		starting_sum += starting_ants[job_name]
@@ -52,7 +53,7 @@ func spawn_ant(pos, job_name):
 func register_ant(ant):
 	var id = _get_next_id()
 	ant._id = id
-	ants[id] = weakref(ant)
+	ants[id] = ant
 	ant.connect("dead", self, "on_ant_dead")
 	if ant.job:
 		if not ants_by_job.has(ant.job.job_name):
@@ -61,7 +62,7 @@ func register_ant(ant):
 
 func _get_next_id():
 	for i in range(999999):
-		if not ants.has(i) or ants[i].get_ref() == null:
+		if not ants.has(i) or not is_instance_valid(ants[i]):
 			return i
 	push_error("Too many ants")
 

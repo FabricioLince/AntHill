@@ -18,11 +18,9 @@ func put_dig_task(tile):
 	return task
 
 class DigTask:
-	signal done()
+	extends "res://task system/TaskSystem.gd".BaseTask
 	var tile
 	var valid
 	func _init(tile_):
 		self.tile = tile_
 		self.valid = true
-	func set_done():
-		emit_signal("done", tile)

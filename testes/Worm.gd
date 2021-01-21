@@ -45,7 +45,16 @@ func _process(delta):
 		if timer > sections_timing[i].start and timer < sections_timing[i].end:
 			var target = line.get_point_position(i)
 			target = (target - sections[i].position)
-			var speed = move_speed * target.length() / dist_between_sections
+			var l = target.length()
+			var speed = move_speed
+			sections[i].modulate = Color.white
+			if l < dist_between_sections:
+				speed = 0
+				sections[i].modulate = Color.black
+			if i < sections.size()-1:
+				if line.get_point_position(i+1).distance_to(line.get_point_position(i+2)) > dist_between_sections*2:
+					speed = 0
+					sections[i].modulate = Color.red
 			sections[i].rotation = lerp_angle(sections[i].rotation, target.angle(), delta/0.5)
 			sections[i].position += Vector2.RIGHT.rotated(sections[i].rotation)*speed*delta
 	
@@ -53,5 +62,8 @@ func _process(delta):
 	if timer > head_timing.start and timer < head_timing.end:
 		var target = get_global_mouse_position()
 		var direction_to_target = target - head.global_position
-		head.rotation = lerp_angle(head.rotation, direction_to_target.angle(), delta/0.5)
-		head.position += Vector2.RIGHT.rotated(head.rotation) * move_speed*delta
+		if line.get_point_position(0).distance_to(line.get_point_position(1))>dist_between_sections*2:
+			pass
+		else:
+			head.rotation = lerp_angle(head.rotation, direction_to_target.angle(), delta/0.5)
+			head.position += Vector2.RIGHT.rotated(head.rotation) * move_speed*delta

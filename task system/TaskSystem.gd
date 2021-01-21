@@ -14,3 +14,8 @@ func push_task(task):
 
 func remove_task(task):
 	tasks.erase(task)
+
+class BaseTask:
+	signal done(task, done_by)
+	func set_done(done_by=null):
+		emit_signal("done", self, done_by)

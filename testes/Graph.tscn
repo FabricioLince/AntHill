@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://testes/Graph.gd" type="Script" id=1]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+data = [ {
+"amount": 12,
+"arc": 3.96833,
+"color": Color( 0, 0, 1, 1 ),
+"end_angle": 3.96833,
+"label": "Collectors",
+"percent": 0.631579,
+"start_angle": 0.0
+}, {
+"amount": 3,
+"arc": 0.992082,
+"color": Color( 0.65, 0.16, 0.16, 1 ),
+"end_angle": 4.96041,
+"label": "Diggers",
+"percent": 0.157895,
+"start_angle": 3.96833
+}, {
+"amount": 4,
+"arc": 1.32278,
+"color": Color( 1, 0.75, 0.8, 1 ),
+"end_angle": 6.28319,
+"label": "Nurses",
+"percent": 0.210526,
+"start_angle": 4.96041
+} ]
+pie_radius = 64.0
+fill = true

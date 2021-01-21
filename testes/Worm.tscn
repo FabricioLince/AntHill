@@ -29,47 +29,47 @@ texture = ExtResource( 2 )
 visible = false
 
 [node name="Section" type="Sprite" parent="Worm/Sections"]
-scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
 [node name="Section2" type="Sprite" parent="Worm/Sections"]
-scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
 [node name="Section3" type="Sprite" parent="Worm/Sections"]
-scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
 [node name="Section4" type="Sprite" parent="Worm/Sections"]
-scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
 [node name="Section5" type="Sprite" parent="Worm/Sections"]
-scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
 [node name="Section6" type="Sprite" parent="Worm/Sections"]
-scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
 [node name="Section7" type="Sprite" parent="Worm/Sections"]
-scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
 [node name="Section8" type="Sprite" parent="Worm/Sections"]
-scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
 [node name="Section9" type="Sprite" parent="Worm/Sections"]
-scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
 [node name="Section10" type="Sprite" parent="Worm/Sections"]
-scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
 [node name="Section11" type="Sprite" parent="Worm/Sections"]
-scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
 [node name="butt" type="Sprite" parent="Worm/Sections"]

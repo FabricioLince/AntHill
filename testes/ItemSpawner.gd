@@ -36,7 +36,8 @@ func _process(delta):
 		item.rotation = rand_range(0, 2*PI)
 		items_root.add_child(item)
 		if task_system:
-			get_node(task_system).put_fetch_task(item)
+			get_node(task_system).push_fetch_task(item)
+			item.set("task_system", get_node(task_system))
 		if not last_item_spawned.has(point):
 			last_item_spawned[point] = []
 		last_item_spawned[point].append(item)
