@@ -47,8 +47,12 @@ func closest_chunk_with_category(t_pos, cat):
 		if tile:
 			var d = t_pos.distance_squared_to(tile)
 			if closest == null or d < dist:
-				closest = {tile=tile, chunk=chunk}
+				closest = {chunk=chunk}
 				dist = d
 	if closest:
-		closest["items"] = closest.chunk.storage[closest.tile]
+		closest.tiles = closest.chunk.get_all_tiles_with_category(cat)
+		closest.items = []
+		for t in closest.tiles:
+			for i in closest.chunk.storage[t]:
+				closest.items.append(i)
 		return closest

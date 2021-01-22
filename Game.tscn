@@ -100,28 +100,28 @@ min_distance = 8.0
 position = Vector2( 1520, 432 )
 
 [node name="SpawnPoint2" type="Position2D" parent="FoodSpawner"]
-position = Vector2( 2346, 26 )
+position = Vector2( 2082, 1338 )
 
 [node name="SpawnPoint3" type="Position2D" parent="FoodSpawner"]
-position = Vector2( 2386, 74 )
+position = Vector2( 2122, 1386 )
 
 [node name="SpawnPoint4" type="Position2D" parent="FoodSpawner"]
-position = Vector2( 2362, 58 )
+position = Vector2( 2098, 1370 )
 
 [node name="SpawnPoint5" type="Position2D" parent="FoodSpawner"]
-position = Vector2( 2362, 58 )
+position = Vector2( 2098, 1370 )
 
 [node name="SpawnPoint6" type="Position2D" parent="FoodSpawner"]
-position = Vector2( 2362, 58 )
+position = Vector2( 2098, 1370 )
 
 [node name="SpawnPoint7" type="Position2D" parent="FoodSpawner"]
-position = Vector2( 2362, 58 )
+position = Vector2( 2098, 1370 )
 
 [node name="SpawnPoint8" type="Position2D" parent="FoodSpawner"]
-position = Vector2( 2362, 58 )
+position = Vector2( 2098, 1370 )
 
 [node name="SpawnPoint9" type="Position2D" parent="FoodSpawner"]
-position = Vector2( 2362, 58 )
+position = Vector2( 2098, 1370 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 1480, 624 )

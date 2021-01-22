@@ -30,15 +30,14 @@ func _state_logic(delta):
 			if is_instance_valid(food_to_eat):
 				if ant.movement.on_same_tile(food_to_eat.position):
 					food_to_eat.held = ant
-					#ant.rotation = ant.position.angle_to(food_to_eat.position)+sin(OS.get_ticks_msec()*1000)*PI/2
-					ant.rotation += delta * 5
-					var nut = food_to_eat.nutrition * delta
-					ant.status.food += nut
-					food_to_eat.nutrition -= nut
-					if food_to_eat.nutrition < 0.01:
+					ant.rotation += delta * (randi()%5+2)
+					ant.status.food += food_to_eat.saturation * delta
+					if ant.status.food >= ant.status.max_food:
+						ant.status.food = ant.status.max_food
+						ant.status.saturation = food_to_eat.saturation
 						food_to_eat.queue_free()
 						food_to_eat = null
-				elif not movement.has_path():
+				elif not movement.has_path() or food_to_eat.held:
 					food_to_eat = null
 			else:
 				search_food()
@@ -75,9 +74,16 @@ func search_food():
 	var storage_with_food = storage.closest_chunk_with_category(ant.get_tile_position(), "food")
 	if storage_with_food:
 		food_to_eat = storage_with_food.items[randi()%storage_with_food.items.size()]
-		movement.set_goal(storage_with_food.tile)
-		if not food_to_eat:
+		var count = 0
+		while food_to_eat.held and count < 5:
+			count += 1
+			food_to_eat = storage_with_food.items[randi()%storage_with_food.items.size()]
+		
+		if food_to_eat.held:
+			food_to_eat = null
 			print(ant.name, " found food but everything is held")
+		else:
+			movement.set_goal(movement.map.world_to_map(food_to_eat.position))
 		eating_counter = 1.0
 	if not food_to_eat:
 		#print("we have no food in storage")
@@ -93,7 +99,7 @@ func get_action():
 			return "idling"
 		states.getting_food:
 			if is_instance_valid(food_to_eat):
-				if ant.movement.on_same_tile(food_to_eat.position):
+				if movement.on_same_tile(food_to_eat.position):
 					return "eating"
 				elif movement.has_path():
 					return "getting food"

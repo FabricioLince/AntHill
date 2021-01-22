@@ -81,6 +81,9 @@ func amount_on(tile):
 func type_on(tile):
 	if amount_on(tile) > 0:
 		return storage[tile][0].type
+func get_on(tile, property):
+	if amount_on(tile) > 0:
+		return storage[tile][0].get(property)
 
 func max_stack_for(tile):
 	if tiles.has(tile):
@@ -91,8 +94,14 @@ func max_stack_for(tile):
 
 func get_tile_with_category(cat):
 	for tile in storage:
-		if amount_on(tile) > 0 and storage[tile][0].get("category") == cat:
+		if get_on(tile, "category") == cat:
 			return tile
+func get_all_tiles_with_category(cat):
+	var tiles = []
+	for tile in storage:
+		if get_on(tile, "category") == cat:
+			tiles.push_back(tile)
+	return tiles
 
 func deposit(item, tile):
 	if not can_put_on(item, tile):

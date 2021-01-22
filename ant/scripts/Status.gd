@@ -9,6 +9,7 @@ var age = 0.0
 var food = 100.0
 var max_food = 100.0
 var food_deplet_rate = 1
+var saturation = 0
 
 var health = 1.0
 var health_deplet_by_starvation = 0.01
@@ -18,7 +19,10 @@ func _ready():
 
 func _process(delta):
 	age += delta
-	food = max(0, food - delta*food_deplet_rate)
+	
+	saturation -= delta
+	if saturation < 0:
+		food = max(0, food - delta*food_deplet_rate)
 	if is_starving():
 		health = max(0, health - delta*health_deplet_by_starvation)
 		if health <= 0:
